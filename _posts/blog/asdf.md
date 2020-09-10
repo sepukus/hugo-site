@@ -12,5 +12,11 @@ modules:
     title: test mod 2
     leadtext: bladlfkasjdofiaj sofiaj sdflead
     content: asjdoisjfosidjf sojas dfoiasjdfoij
+  - type: spotlight_image_content
+    title1: asdfasodifj
+    content1: asdfasdf
+    title2: asdf
+    content2: asdf
+    image: /images/uploads/resources-banner.jpg
 ---
 asfdasdfasdf
