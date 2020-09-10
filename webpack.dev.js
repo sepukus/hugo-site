@@ -1,27 +1,29 @@
 const merge = require("webpack-merge");
 const path = require("path");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const common = require("./webpack.common");
 
 module.exports = merge(common, {
   mode: "development",
+  devtool: "inline-source-map",
 
   output: {
     filename: "[name].js",
-    chunkFilename: "[id].css"
+    chunkFilename: "[id].css",
   },
 
   devServer: {
     port: process.env.PORT || 3000,
     contentBase: path.join(process.cwd(), "./dist"),
     watchContentBase: true,
+    stats: "normal",
     quiet: false,
     open: true,
     historyApiFallback: {
-      rewrites: [{from: /./, to: "404.html"}]
-    }
+      rewrites: [{ from: /./, to: "404.html" }],
+    },
   },
 
   plugins: [
@@ -29,12 +31,13 @@ module.exports = merge(common, {
       cleanOnceBeforeBuildPatterns: [
         "dist/**/*.js",
         "dist/**/*.css",
-        "site/data/webpack.json"
-      ]}),
+        "site/data/webpack.json",
+      ],
+    }),
 
     new MiniCssExtractPlugin({
       filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
-  ]
+      chunkFilename: "[id].css",
+    }),
+  ],
 });

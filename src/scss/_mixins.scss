@@ -1,0 +1,141 @@
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+  $src: null;
+
+  $extmods: (
+    eot: "?",
+    svg: "#" + str-replace($name, " ", "_")
+  );
+
+  $formats: (
+    otf: "opentype",
+    ttf: "truetype"
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+// Truncate text element with ellipsis
+@mixin truncate() {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+
+  > * {
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// global spacing mixing
+@mixin componentSpacingCompile($small: false, $paddingTop: true) {
+  @if $small {
+    @if $paddingTop {
+      padding-top: $global-padding-minimal;
+    }
+    padding-bottom: $global-padding-minimal / 2;
+
+    @media (max-width: $breakpoint-small) {
+      padding-top: $global-padding-minimal-mobile;
+      padding-bottom: $global-padding-minimal-mobile / 2;
+    }
+  } @else {
+    @if $paddingTop {
+      padding-top: $global-padding;
+    }
+    padding-bottom: $global-padding / 2;
+
+    @media (max-width: $breakpoint-small) {
+      padding-top: $global-padding-mobile;
+      padding-bottom: $global-padding-mobile / 2;
+    }
+  }
+}
+
+@mixin unorderList() {
+  // UL Lists
+  /* ========================================================================
+     Component: Uk-List
+     Using it as a default as there is no way to target it from within
+     markdown richtext editor content
+   ========================================================================== */
+
+  ul,
+  ol {
+    padding: 0;
+    list-style: none;
+  }
+  ul > * > :last-child,
+  ol > * > :last-child { margin-bottom: 0; }
+  ul > :nth-child(n+2),
+  ol > :nth-child(n+2),
+  ul > * > ul,
+  ol > * > ol { margin-top: $list-margin-top; }
+  ul > *,
+  ol > * { padding-left: $list-padding-left; }
+  ol > * { counter-increment: decimal; }
+  ul > ::before,
+  ol > ::before {
+    content: '';
+    position: relative;
+    left: (-$list-padding-left);
+    width: $list-padding-left;
+    height: $list-marker-height;
+    margin-bottom: (-$list-marker-height);
+    display: list-item;
+    list-style-position: inside;
+    text-align: right;
+  }
+  ul > ::before { list-style-type: disc; color: $brand-secondary-raspberry !important; }
+  ol > ::before {
+    content: counter(decimal, decimal) '\200A.\00A0';
+    color: $brand-secondary-raspberry !important;
+    font-family: Futura;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 140%;
+  }
+}
+
+@mixin svgLine() {
+  &__svg {
+    padding-bottom: 60px;
+    width: 100%;
+
+    @media (max-width: $breakpoint-medium) {
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: $breakpoint-small) {
+      display: none;
+      padding-bottom: 20px;
+    }
+
+    &-mobile {
+      display: none;
+
+      @media (max-width: $breakpoint-small) {
+        width: 100%;
+        display: block;
+        padding-bottom: 20px;
+      }
+    }
+  }
+}

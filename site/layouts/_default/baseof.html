@@ -1,17 +1,24 @@
 <!doctype html>
 <html lang="{{ $.Site.Language.Lang }}">
-  {{ partial "head" . }}
-  <body class="sans-serif">
+{{ partial "header" . }}
 
-    {{ block "header" . }}{{ partial "nav" . }}{{end}}
+<body class="sans-serif {{ if .IsHome }}{{else}}{{if .Params.imageUrl}}{{else}}uk-navbar-white{{end}}{{end}}">
 
-    {{ block "main" . }}{{ end }}
 
-    {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+  {{ block "head" . }}
+  <header class="header-main">
+    <div class="uk-container">
+      {{ partial "main-nav" . }}
+    </div>
+  </header>
+  {{end}}
+  {{ block "main" . }}{{ end }}
 
-    {{ $script := .Site.Data.webpack.main }}
-    {{ with $script.js }}
-      <script src="{{ relURL . }}"></script>
-    {{ end }}
-  </body>
+  {{ block "footer" . }}{{ partial "footer" . }}{{end}}
+
+  {{ $script := .Site.Data.webpack.main }}
+  {{ with $script.js }}
+  <script src="{{ relURL . }}"></script>
+  {{ end }}
+</body>
 </html>

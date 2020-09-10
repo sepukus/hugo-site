@@ -1,0 +1,135 @@
+.jumbotron {
+  .uk-icon {
+    position: relative;
+    top: -2px;
+  }
+
+  &.isHome {
+    .uk-background-cover {
+      padding-top: 280px;
+      padding-bottom: 170px;
+
+      @media (max-width: $breakpoint-small) {
+        padding-top: 180px;
+        padding-bottom: 0;
+      }
+    }
+  }
+  .uk-background-cover {
+    padding-top: 150px;
+    padding-bottom: 100px;
+
+    @media (max-width: $breakpoint-small) {
+      padding-top: 100px;
+      padding-bottom: 0;
+    }
+  }
+  .uk-background-transparent {
+    $border-radius: 0;
+    $border-radius-small: $border-radius/2;
+
+    position: relative;
+    max-width: 556px;
+    padding: 60px;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    @media (max-width: $breakpoint-small) {
+      max-width: 100%;
+      padding: 60px 5px 30px;
+    }
+  }
+
+  .C01-hero__title {
+    color: white;
+  }
+
+  &.C01-hero__noimage {
+    .uk-background-cover {
+      background-color: $grey-lightest;
+    }
+    .C01-hero__title {
+      color: $global-black;
+    }
+  }
+
+  &.C01-hero__right-image {
+    @media (max-width: $breakpoint-small) {
+      .uk-container {
+        padding-left: 0;
+        padding-right: 0;
+
+        .uk-grid-item-match {
+          margin-left: 15px;
+          margin-right: 15px;
+        }
+      }
+    }
+    .uk-background-cover {
+      padding-top: 80px;
+      padding-bottom: 0;
+
+      @media (max-width: $breakpoint-small) {
+        padding-top: 80px;
+        padding-bottom: 30px;
+      }
+
+      h1,
+      p {
+        padding-right: 20px;
+      }
+
+      .C01-hero__svg-horizontal {
+        width: 100%;
+        max-width: 204px;
+      }
+
+      @media (max-width: $breakpoint-small) {
+        .C01-hero__banner-right-container {
+          order: -1;
+        }
+      }
+    }
+  }
+  &.C01-hero__no-right-image {
+    .uk-background-cover {
+      padding-top: 150px;
+      padding-bottom: 50px;
+
+      @media (max-width: $breakpoint-small) {
+        padding-top: 100px;
+        padding-bottom: 30px;
+      }
+
+      h1,
+      p {
+        padding-right: 20px;
+      }
+
+      .C01-hero__svg-vertical {
+        display: block;
+
+        @media (max-width: $breakpoint-small) {
+          display: none;
+        }
+      }
+      .C01-hero__svg-container {
+        display: block;
+
+        @media (max-width: $breakpoint-small) {
+          display: none;
+        }
+      }
+      .C01-hero__svg-horizontal {
+        width: 100%;
+        max-width: 204px;
+        display: none;
+
+        @media (max-width: $breakpoint-small) {
+          display: block;
+        }
+      }
+    }
+  }
+}

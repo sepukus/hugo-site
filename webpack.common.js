@@ -1,57 +1,128 @@
 const webpack = require("webpack");
 const path = require("path");
+
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const AssetsPlugin = require("assets-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
+  mode: "development",
+
   entry: {
+    cms: path.join(__dirname, "src", "scripts", "cms.js"),
     main: path.join(__dirname, "src", "index.js"),
-    cms: path.join(__dirname, "src", "js", "cms.js"),
   },
 
   output: {
-    path: path.join(__dirname, "dist")
+    filename: "[name].js",
+    path: path.join(__dirname, "dist"),
+  },
+
+  resolve: {
+    alias: {
+      "uikit-util": path.join(__dirname, "src", "scripts", "util"),
+    },
   },
 
   module: {
     rules: [
       {
-        test: /\.((png)|(eot)|(woff)|(woff2)|(ttf)|(svg)|(gif))(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "file-loader?name=/[hash].[ext]"
+        test: /\.txt$/,
+        use: "raw-loader",
       },
+
       {
-        loader: "babel-loader",
-        test: /\.js?$/,
-        exclude: /node_modules/,
-        query: {cacheDirectory: true}
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "images/",
+              publicPath: "images/",
+            },
+          },
+        ],
       },
+
+      { test: /\.json$/, loader: "json-loader" },
+
+      {
+        test: /\.(woff|woff2|ttf|otf)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "fonts/",
+              publicPath: "fonts/",
+            },
+          },
+        ],
+      },
+
       {
         test: /\.(sa|sc|c)ss$/,
-        exclude: /node_modules/,
-        use: ["style-loader", MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"]
-      }
-    ]
-  },
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
 
+      {
+        loader: "babel-loader",
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        query: { cacheDirectory: true },
+      },
+    ],
+  },
   plugins: [
+    //new CleanWebpackPlugin(['dist']),
+    //
+    // new webpack.ProvidePlugin({
+    //   fetch: "imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch"
+    // }),
+
     new AssetsPlugin({
       filename: "webpack.json",
       path: path.join(process.cwd(), "site/data"),
-      prettyPrint: true
+      prettyPrint: true,
     }),
     new CopyWebpackPlugin([
       {
         from: "./src/fonts/",
         to: "fonts/",
-        flatten: true
-      }
+        flatten: true,
+      },
     ]),
     new HtmlWebpackPlugin({
-      filename: 'admin/index.html',
-      template: 'src/cms.html',
+      filename: "admin/index.html",
+      template: "src/cms.html",
       inject: false,
     }),
-  ]
+    new Dotenv({
+      systemvars: true,
+    }),
+  ],
 };

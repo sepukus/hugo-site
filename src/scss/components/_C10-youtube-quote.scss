@@ -1,0 +1,51 @@
+.C10-youtube-quote {
+  @media (max-width: $breakpoint-small) {
+    &.uk-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  &__container {
+    background-color: $grey-lightest;
+  }
+
+  @media (max-width: $breakpoint-small) {
+    &__iframe-container {
+      padding: 0;
+    }
+  }
+
+  &__info {
+    padding: 20px 0 0;
+    @media (max-width: $breakpoint-small) {
+      .uk-container {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+  }
+
+  &__author {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 140%;
+  }
+
+  &__iframe {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    margin: 60px auto 20px;
+    overflow: hidden;
+
+    @media (max-width: $breakpoint-small) {
+      margin: 0;
+    }
+
+    iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    }
+  }
+}

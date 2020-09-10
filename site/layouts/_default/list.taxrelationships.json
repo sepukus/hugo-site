@@ -1,0 +1,31 @@
+{{- $filters := slice "category" "focus" "role" "organisation_size" "industry" -}}
+{{- $.Scratch.Add "taxrel_index" dict -}}
+{{- /* First Loop - First Taxonomy */ -}}
+{{- range $primaryFilter := $filters -}}
+  {{- $.Scratch.Add "primaryFilter" dict -}}
+  {{- $primaryTaxonomies := index $.Site.Taxonomies $primaryFilter -}}  
+  {{- /* Second Loop - First Taxonomy Taxonomies */ -}}
+  {{- range $primaryTax, $p := $primaryTaxonomies -}}
+    {{- with $.Site.GetPage (printf "/%s" $primaryTax) -}} {{/* we do this to get the proper taxonomy title rather than a urlized value */}}
+      {{- $primaryTitle := .LinkTitle -}}      
+      {{- $.Scratch.Add "pages" slice -}}
+      
+      {{- $primaryParam := print ".Params." $primaryFilter -}}
+      {{- $v1 := where .Site.Pages $primaryParam $primaryTitle -}}
+      
+      {{- range $page := $v1 -}}
+        {{- $.Scratch.Add "pages" $page.File.UniqueID }}
+      {{- end -}}
+
+      {{- $secondaryData := $.Scratch.Get "pages" -}}
+      {{- $.Scratch.SetInMap "primaryFilter" $primaryTitle $secondaryData -}}
+      {{- $.Scratch.Delete "pages" -}}
+    {{- end -}}
+  {{- end -}}
+  {{- /* Assign to a map with Taxonomy type of first Taxonomy  as key */ -}}
+  {{- $primaryData := $.Scratch.Get "primaryFilter" -}}
+  {{- $.Scratch.SetInMap "taxrel_index" $primaryFilter $primaryData -}}
+  {{- $.Scratch.Delete "primaryFilter" -}}
+{{- end -}}
+{{- $.Scratch.Get "taxrel_index" | jsonify -}}
+

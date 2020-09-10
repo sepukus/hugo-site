@@ -1,0 +1,31 @@
+$mobileFilterBreakpoint: $breakpoint-medium;
+
+@import 'header';
+@import 'filter-bar';
+@import 'listing';
+@import 'filter';
+@import 'text-filter';
+@import 'loader';
+
+#resource-listing {
+  font-size: 0px;
+}
+
+.resource-listing {
+  font-size: 1rem;
+
+  .clear-filters {
+    background: transparent;
+    border: none;
+    color: #B60057;
+    margin-bottom: 6px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+
+
+
+
+

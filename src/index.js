@@ -1,6 +1,13 @@
-// JS Goes here - ES6 supported
+require("offline-plugin/runtime").install();
 
-import "./css/main.css";
+// import "./fonts/FuturaBT-Bold.ttf";
+// import "./fonts/FuturaBT-Light.ttf";
+// import "./fonts/FuturaBT-LightItalic.ttf";
+// import "./fonts/FuturaBT-Medium.ttf";
+// import "./fonts/FuturaBT-Heavy.ttf";
 
-// Say hello
-console.log("🦊 Hello! Edit me in src/index.js");
+import "./scss/main.scss";
+
+import "./scripts/app.core.js";
+
+import "./scripts/resources-listing/app.js";

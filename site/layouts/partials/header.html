@@ -1,0 +1,51 @@
+<head>
+
+    <title>{{ .Title }} | {{ $.Site.Title }}</title>
+
+    {{ $stylesheet := .Site.Data.webpack.main }}
+    {{ with $stylesheet.css }}
+    <link href="{{ relURL . }}" rel="stylesheet">
+    {{ end }}
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <base href="{{ if getenv "CONTEXT" }}{{ cond (eq "production" (getenv "CONTEXT")) (getenv "URL") (getenv "DEPLOY_PRIME_URL") }}{{ else }}{{ $.Site.BaseURL }}{{ end }}">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <meta name="theme-color" content="#fff">
+
+    <!-- Meta Description -->
+    {{if .Params.meta_keywords}}
+    <meta name="keywords" content="{{.Params.meta_keywords}}">
+    {{end}}
+    {{if .Params.meta_description}}
+    <meta name="description" content="{{.Params.meta_description}}">
+    {{end}}
+
+    {{ with .Site.GetPage "/settings/settings.md" }}
+        <!-- Open Graph -->
+        {{range $key,$val := .Params.seo}}
+            <meta property="og:site_name" content="{{.seo_og_sitename}}" />
+            <meta property="og:title" content="{{ .seo_og_sitename }}" />
+            <meta property="og:description" content="{{.seo_og_description}}" />
+            <meta property="og:url" content="https://cmhaa.org.au/" />
+            <meta property="og:type" content="{{.seo_og_type}}" />
+            <meta property="og:image" content="{{.seo_og_image}}" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="twitter:card" content="summary_large_image" />
+            <meta property="twitter:image" content="{{.seo_og_image}}" />
+            <meta property="twitter:site" content="@{{.seo_og_twitter}}" />
+        {{end}}
+    {{end}}
+
+    {{ if .IsHome }}
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    {{ end }}
+</head>

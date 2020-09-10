@@ -1,9 +1,77 @@
 baseurl = "/"
 languageCode = "en-us"
 languageLang = "en"
-title = "Homepage"
+title = "CMHAA"
 
 # RSS, categories and tags disabled for an easy start
-# See configuration options for more details: 
+# See configuration options for more details:
 # https://gohugo.io/getting-started/configuration/#toml-configuration
-disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
+#disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
+disableKinds = ["RSS"]
+
+[related]
+  threshold = 0
+  includeNewer = true
+  toLower = false
+
+  [[related.indices]]
+    name = "categories"
+    weight = 100
+
+  [[related.indices]]
+    name = "date"
+    weight = 10
+
+[taxonomies]
+  category = "category"
+  focus = "focus"
+  role = "role"
+  organisation_size = "organisation_size"
+  industry = "industry"
+
+[outputs]
+home = ["HTML", "Algolia", "TaxRelationships"]
+
+[permalinks]
+pages = "/:slug/"
+
+[menu]
+  [[menu.main]]
+    identifier = "about-us"
+    name = "About us"
+    url = "/about-us/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "resources"
+    name = "Resources"
+    url = "/resources/"
+    weight = 2
+
+  [[menu.main]]
+    identifier = "contact-us"
+    name = "Contact Us"
+    url = "/contact-us/"
+    weight = 3
+
+# Algolia config
+[outputFormats.Algolia]
+baseName = "algolia"
+isPlainText = true
+mediaType = "application/json"
+notAlternative = true
+
+[params.algolia]
+vars = ["title", "category"]
+params = ["category"]
+
+# Taxonomy Relationships
+[outputFormats.TaxRelationships]
+baseName = "taxrelationships"
+isPlainText = true
+mediaType = "application/json"
+notAlternative = true
+
+[params.taxrelationships]
+vars = ["title", "category"]
+params = ["category"]

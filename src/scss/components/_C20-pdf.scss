@@ -1,0 +1,30 @@
+.C20-pdf {
+  @include componentSpacingCompile($paddingTop:false);
+
+  &__subheading {
+    margin-bottom: 0;
+  }
+
+  .uk-card {
+    margin: 5px 0;
+    p {
+      margin-top: 0;
+      font-size: 16px;
+      line-height: 140%;
+    }
+
+    &-body {
+      @media (max-width: $breakpoint-small) {
+        padding: 20px 20px;
+      }
+    }
+  }
+
+  a.uk-link-heading:hover,
+  .uk-link-heading a:hover,
+  .uk-link-toggle:hover .uk-link-heading,
+  .uk-link-toggle:focus .uk-link-heading {
+    color: $brand-secondary-raspberry;
+    text-decoration: $brand-secondary-raspberry;
+  }
+}
