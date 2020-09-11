@@ -3,6 +3,10 @@ window.CMS_MANUAL_INIT = true;
 import React from "react";
 import CMS, { init } from "netlify-cms-app";
 
+import UIkit from "uikit";
+import Icons from "uikit/dist/js/uikit-icons";
+window.UIkit = UIkit;
+
 // Import main site styles as a string to inject into the CMS preview pane
 // eslint-disable-next-line import/no-unresolved
 import styles from "!to-string-loader!css-loader!postcss-loader!sass-loader!../scss/main.scss";
