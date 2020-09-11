@@ -9,5 +9,11 @@ modules:
     image: /uploads/resources-banner.jpg
     leadtext: sdfsadfasdf asdf asdf asdf
     content: a sdfasdf asdf asdf asdf sadf
+  - type: spotlight_image_content
+    image: /uploads/resources-banner.jpg
+    title1: asdfasdf
+    content1: sadfasdfasdfasdf
+    title2: fssdffdsfdsfsd
+    content2: asdfasfdasdfasdf
 ---
 asdfasdfasfd
