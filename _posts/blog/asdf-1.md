@@ -1,6 +1,6 @@
 ---
 title: asdf
-date: 2020-09-10T03:42:58.964Z
+date: 2020-09-11T01:28:33.666Z
 thumbnail: /images/uploads/resources-banner.jpg
 foot: oasijdfioj
 modules:
