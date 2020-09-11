@@ -18,6 +18,7 @@ module.exports = {
 
   output: {
     filename: "[name].js",
+    chunkFilename: "[name].chunk.js",
     path: path.join(__dirname, "dist"),
   },
 
@@ -94,6 +95,12 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         query: { cacheDirectory: true },
+      },
+
+      {
+        test: /\.html$/,
+        include: [path.resolve(__dirname, "src/scripts/cms-preview-templates"), path.resolve(__dirname, "site/layouts/partials/modules/")],
+        use: { loader: "html-loader" },
       },
     ],
   },
